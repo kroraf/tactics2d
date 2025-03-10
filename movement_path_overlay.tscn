@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5shr72deh57y"]
+
+[ext_resource type="Script" uid="uid://bfgn2r5s73ekw" path="res://scripts/movement_path_overlay.gd" id="1_nbfan"]
+
+[node name="MovementPathOverlay" type="TileMapLayer"]
+script = ExtResource("1_nbfan")

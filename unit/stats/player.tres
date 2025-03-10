@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://gqa138tyelg1"]
+
+[ext_resource type="Script" uid="uid://vk65po3mgy1u" path="res://resources/unit_stats.gd" id="1_khxfy"]
+
+[resource]
+script = ExtResource("1_khxfy")
+name = "Player"
+max_ap = 4
+hp = 5
+metadata/_custom_type_script = ExtResource("1_khxfy")

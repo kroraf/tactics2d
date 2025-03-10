@@ -1,0 +1,15 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c4fgftv5kuttw"]
+
+[ext_resource type="Texture2D" uid="uid://brwvve36m171a" path="res://assets/mouse_highlight.png" id="1_ki2m8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1g8if"]
+texture = ExtResource("1_ki2m8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(32, 32)
+sources/3 = SubResource("TileSetAtlasSource_1g8if")

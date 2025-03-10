@@ -1,0 +1,9 @@
+Node2D
+Node
+AnimationPlayer
+Button
+Sprite2D
+TileMapLayer
+CollisionShape2D
+AnimationTree
+Label

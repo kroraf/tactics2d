@@ -1,0 +1,4 @@
+res://world.tscn
+res://unit.tscn
+res://movement_overlay.tscn
+res://scripts/unit_manager.tscn

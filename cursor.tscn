@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqds4ydcmksnq"]
+
+[ext_resource type="Script" uid="uid://dq57hsky2mpeo" path="res://scripts/cursor.gd" id="1_fsq4c"]
+[ext_resource type="Texture2D" uid="uid://cl71y5ixrtmwa" path="res://assets/movement_overlay.png" id="2_5l68f"]
+
+[node name="Cursor" type="Node2D"]
+script = ExtResource("1_fsq4c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+texture = ExtResource("2_5l68f")

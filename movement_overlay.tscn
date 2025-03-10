@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bebqebccv5ikn"]
+
+[ext_resource type="Texture2D" uid="uid://brwvve36m171a" path="res://assets/mouse_highlight.png" id="1_i8pkt"]
+[ext_resource type="Script" uid="uid://dcp60wxvx3cbb" path="res://scripts/movement_overlay.gd" id="1_saory"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4hvyy"]
+texture = ExtResource("1_i8pkt")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_sx0ks"]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(32, 16)
+sources/0 = SubResource("TileSetAtlasSource_4hvyy")
+
+[node name="MovementOverlay" type="TileMapLayer"]
+modulate = Color(1, 0.380392, 0.788235, 0.513726)
+tile_set = SubResource("TileSet_sx0ks")
+script = ExtResource("1_saory")
