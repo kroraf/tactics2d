@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://dcqlxb0rxovkt"]
+
+[ext_resource type="Script" uid="uid://vk65po3mgy1u" path="res://resources/unit_stats.gd" id="1_slcv0"]
+
+[resource]
+script = ExtResource("1_slcv0")
+name = ""
+max_ap = 3
+hp = 5
+metadata/_custom_type_script = ExtResource("1_slcv0")

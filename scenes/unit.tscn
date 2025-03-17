@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ip1nitsf3mjt"]
+
+[ext_resource type="Script" uid="uid://2egtcfecjp3l" path="res://scripts/unit.gd" id="1_ctwoc"]
+[ext_resource type="Resource" uid="uid://dcqlxb0rxovkt" path="res://resources/unit/unit_stats.tres" id="2_5wnup"]
+[ext_resource type="Texture2D" uid="uid://wiew02vekmno" path="res://assets/character/Mage-Sheet.png" id="2_davkp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjt0s"]
+radius = 6.0
+
+[node name="Unit" type="Area2D"]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_ctwoc")
+stats = ExtResource("2_5wnup")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_davkp")
+offset = Vector2(0, -22)
+hframes = 6
+vframes = 24
+frame = 72
+region_rect = Rect2(7, 12, 16, 34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -15)
+shape = SubResource("CapsuleShape2D_pjt0s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

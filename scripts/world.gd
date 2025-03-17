@@ -1,8 +1,6 @@
 extends Node2D
 
 
-@export var turn_manager: TurnManager
-
 @onready var mouse_highlight: Sprite2D = $mouse_highlight
 @onready var ground_layer: TileMapLayer = $Map/GroundLayer
 @onready var rock_layer = $Map/RockLayer
@@ -13,6 +11,7 @@ extends Node2D
 @onready var coordinates_label = $Camera2D/CoordinatesLabel
 @onready var movement_overlay: MovementOverlay = $Map/MovementOverlay
 @onready var turn_indicator = $Camera2D/TurnIndicator
+@onready var current_unit: Unit
 
 var _walkable_cells: Array = []
 
@@ -24,25 +23,25 @@ const DIRECTIONS = [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]
 
 func _ready() -> void:
 	Navigation.init([ground_layer, rock_layer])
-	unit.cell_position = Vector2i(2, 4)
-	turn_manager.ally_turn_started.connect(_on_ally_turn_started)
-	turn_manager.enemy_turn_started.connect(_on_enemy_turn_started)
-	_update_movement_data()
-	turn_manager.turn = TurnManager.PLAYER_TURN
+	EventBus.cursor_accept_pressed.connect(_on_cursor_accept_pressed)
+	EventBus.show_movement_field.connect(_on_show_movement_field)
 	unit_manager.start_battle()
 
-func move_unit_to_cell(coordinates: Vector2i) -> void:
+
+func move_unit_to_cell(unit: Unit, coordinates: Vector2i) -> void:
+	var entity = unit
 	if coordinates in ground_layer.get_used_cells():
 		movement_overlay.clear()
 		var path: Array = Navigation.get_movement_path(unit.cell_position, coordinates)
-		unit.move_along_path(path)
-		unit.decrease_ap(path.size()-1)
-		await unit.movement_complete
-		_update_movement_data()
+		entity.move_along_path(path)
+		entity.decrease_ap(path.size()-1)
+		await entity.movement_complete
+		_update_movement_data(entity)
 
-func _verify_and_move_to_cell(clicked_cell: Vector2i) -> void:
+func verify_and_move_current_unit(clicked_cell: Vector2i) -> void:
+	current_unit = unit_manager.get_current_unit()
 	if clicked_cell in _walkable_cells:
-		move_unit_to_cell(clicked_cell)
+		move_unit_to_cell(current_unit, clicked_cell)
 	else:
 		pass
 		'''TODO: action-not-valid sound'''
@@ -77,15 +76,13 @@ func _flood_fill(cell: Vector2i, max_distance: int) -> Array:
 func _get_movement_cells(entity: Unit) -> Array:
 	return _flood_fill(entity.cell_position, entity.current_ap)
 	
-func _update_movement_data() -> void:
+func _update_movement_data(unit: Unit) -> void:
 	_walkable_cells = _get_movement_cells(unit)
 	movement_overlay.draw(_walkable_cells)
 
-
 func _on_cursor_accept_pressed(cursor_cell):
 	coordinates_label.text = str(cursor_cell)
-	_verify_and_move_to_cell(cursor_cell)
-
+	verify_and_move_current_unit(cursor_cell)
 
 func _on_cursor_moved(cursor_cell):
 	if cursor_cell in ground_layer.get_used_cells():
@@ -99,20 +96,12 @@ func _on_cursor_moved(cursor_cell):
 	else:
 		mouse_highlight.hide()
 
-func _on_ally_turn_started():
-	if not is_instance_valid(unit): return
-	turn_indicator.text = "ally turn"
-	unit.reset_ap()
-	_update_movement_data()
+func _on_end_turn_pressed():
+	print("end turn")
+	unit_manager._step_turn()
 	
-func _on_enemy_turn_started():
-	turn_indicator.text = "enemy turn"
-
-
-func _on_button_pressed():
-	EventBus.end_turn.emit()
-	if turn_manager.turn == TurnManager.PLAYER_TURN:
-		turn_manager.turn = TurnManager.ENEMY_TURN
-	else:
-		turn_manager.turn = TurnManager.PLAYER_TURN
-		
+func _on_show_movement_field(unit):
+	_update_movement_data(unit)
+	
+func update_current_unit():
+	current_unit = unit_manager.get_current_unit()

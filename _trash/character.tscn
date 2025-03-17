@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvx14wrmmg72c"]
+
+[ext_resource type="Texture2D" uid="uid://os522pmyyfxc" path="res://_trash/Witch_Doctor_Idle.png" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://2egtcfecjp3l" path="res://scripts/unit.gd" id="1_pjt0s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_036b0"]
+radius = 7.0
+
+[node name="Character" type="Area2D"]
+script = ExtResource("1_pjt0s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -15)
+texture = ExtResource("1_glpr6")
+region_enabled = true
+region_rect = Rect2(54, 50, 19, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_036b0")
+debug_color = Color(0, 0.523338, 0.511785, 0.42)

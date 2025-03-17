@@ -21,8 +21,8 @@ func _ready():
 	max_ap = stats.max_ap
 	current_ap = max_ap
 	hp = stats.hp
-	animation_player.add_animation_library("player_animation_library", load("res://player_animation_library.res"))
-	animation_player.play("player_animation_library/idle_front")
+	#animation_player.add_animation_library("player_animation_library", load("res://player_animation_library.res"))
+	#animation_player.play("player_animation_library/idle_front")
 
 func move_along_path(path: Array) -> void:
 	if not in_motion:

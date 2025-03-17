@@ -3,6 +3,9 @@ class_name Cursor
 
 @onready var sprite_2d = $Sprite2D
 
+func _ready():
+	sprite_2d.hide()
+
 var cursor_cell_position: Vector2i = Vector2i.ZERO:
 	set(cell):
 		cursor_cell_position = cell
@@ -13,14 +16,13 @@ var cursor_cell_position: Vector2i = Vector2i.ZERO:
 		position = Navigation.map_to_global(cell)
 		moved.emit(cell)
 
-signal accept_pressed(cursor_cell: Vector2i)
 signal moved(cursor_cell: Vector2i)
 
 func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		cursor_cell_position = Navigation.global_to_map(get_global_mouse_position())
 	elif event.is_action_pressed("left_click") or event.is_action_pressed("ui_accept"):
-		accept_pressed.emit(Navigation.global_to_map(get_global_mouse_position()))
+		EventBus.cursor_accept_pressed.emit(Navigation.global_to_map(get_global_mouse_position()))
 		get_viewport().set_input_as_handled()
 		
 	#So that keys pressed won't be registered twice per press
