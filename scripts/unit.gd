@@ -2,7 +2,7 @@ extends Area2D
 class_name Unit
 
 @export var stats: UnitStats
-@onready var animation_player = $AnimationPlayer
+@onready var animated_sprite_2d = $AnimatedSprite2D
 
 
 var max_ap: int
@@ -21,14 +21,12 @@ func _ready():
 	max_ap = stats.max_ap
 	current_ap = max_ap
 	hp = stats.hp
-	#animation_player.add_animation_library("player_animation_library", load("res://player_animation_library.res"))
-	#animation_player.play("player_animation_library/idle_front")
 
 func move_along_path(path: Array) -> void:
 	if not in_motion:
 		for cell in path:
 			in_motion = true
-			#animation_tree.set("parameters/blend_position", Navigation.map_to_global(cell_position).direction_to(Navigation.map_to_global(cell)))
+			animated_sprite_2d.play("run")
 			var move_tween = create_tween()
 			move_tween.tween_property(self, 'global_position', Navigation.map_to_global(cell), 0.2)
 			move_tween.connect("finished", _on_move_tween_finished)
@@ -37,6 +35,7 @@ func move_along_path(path: Array) -> void:
 
 func _on_move_tween_finished() -> void:
 	in_motion = false
+	animated_sprite_2d.play("idle")
 	
 func decrease_ap(value):
 	current_ap -= value

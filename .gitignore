@@ -1,2 +1,3 @@
 *.tmp
-.godot\editor\*
+.godot\editor\
+.godot\shader_cache\
